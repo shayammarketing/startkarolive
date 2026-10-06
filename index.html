@@ -1,0 +1,191 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join Telegram Channel</title>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1550573586391221');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1550573586391221&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins', sans-serif;
+}
+body{
+  background:#120303;
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+.container{
+  text-align:center;
+  padding:20px;
+  max-width:400px;
+  width:100%;
+}
+/* Heading */
+h1{
+  color:#f5fe6c;
+  font-size:28px;
+  margin-bottom:20px;
+}
+/* Image */
+.profile-img{
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  border:3px solid rgba(240,152,152,0.5);
+  object-fit:cover;
+  margin-bottom:20px;
+}
+/* Text */
+.sub-text{
+  color:#d9d5d5;
+  font-size:16px;
+  margin-bottom:10px;
+}
+.join-text{
+  color:#d9d5d5;
+  font-weight:600;
+  margin-bottom:20px;
+}
+/* Button */
+.btn{
+  display:inline-block;
+  width:100%;
+  padding:14px;
+  background:#0174c7;
+  color:#fff;
+  font-size:18px;
+  font-weight:600;
+  border-radius:12px;
+  text-decoration:none;
+  box-shadow:0 4px 10px rgba(0,0,0,0.6);
+  transition:0.3s;
+}
+.btn:hover{
+  background:#025fa3;
+  transform:scale(1.05);
+}
+.btn i{
+  margin-right:8px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>INDIA's MOST DEMANDING CHANNEL</h1>
+  <a href="https://telegram.me/+f9ynlqNAy6o3ODM1" class="telegram-link">
+    <img id="profileImg" src="" alt="Channel Logo" class="profile-img">
+  </a>
+  <p class="sub-text">10K+ MEMBERS ALREADY JOINED</p>
+  <p class="join-text">DON'T WAIT, JOIN NOW</p>
+  <a href="https://telegram.me/+f9ynlqNAy6o3ODM1" class="btn telegram-link">
+    <i class="fab fa-telegram"></i> JOIN NOW
+  </a>
+</div>
+
+<script>
+  // Randomly pick one logo from the logo folder (5 avif files)
+  const logoImages = [
+    "logo/1.avif",
+    "logo/2.avif",
+    "logo/3.avif",
+    "logo/4.avif",
+    "logo/5.avif"
+  ];
+  const randomImg = logoImages[Math.floor(Math.random() * logoImages.length)];
+  document.getElementById("profileImg").src = randomImg;
+</script>
+
+
+<script>
+(function () {
+  'use strict';
+
+  var ENDPOINT = 'https://joinkaro.live/funnel-tracker/track.php'; // ← EDIT ME
+
+  var uid;
+  try {
+    uid = localStorage.getItem('ft_uid');
+    if (!uid) {
+      uid = 'UID-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
+      localStorage.setItem('ft_uid', uid);
+    }
+  } catch (e) {
+    uid = 'UID-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
+  }
+  window.FT_UID = uid;
+
+  var start = Date.now();
+  var clicked = 'No';
+  var lastSent = 0;
+
+  function payload() {
+    return {
+      user_id: uid,
+      screen: (window.screen ? screen.width + 'x' + screen.height : ''),
+      viewport: window.innerWidth + 'x' + window.innerHeight,
+      referrer: document.referrer || '',
+      page_url: location.href,
+      time_spent: Math.max(0, Math.round((Date.now() - start) / 1000)),
+      clicked: clicked,
+      user_agent: navigator.userAgent
+    };
+  }
+
+  function send(force) {
+    var now = Date.now();
+    if (!force && now - lastSent < 400) return;
+    lastSent = now;
+    var body = JSON.stringify(payload());
+    try {
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(ENDPOINT, new Blob([body], { type: 'text/plain' }));
+      } else {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', ENDPOINT, true);
+        xhr.send(body);
+      }
+    } catch (e) { /* never break the page */ }
+  }
+
+  document.addEventListener('click', function (e) {
+    var el = (e.target && e.target.closest) ? e.target.closest('.telegram-link') : null;
+    if (el) {
+      clicked = 'Yes';
+      send(true);
+    }
+  }, true);
+
+  window.addEventListener('pagehide', function () { send(true); });
+
+  send(true);
+})();
+</script>
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"b85c535242a44ef6ad102fea51fb0fa3","r":1,"spa":2}' crossorigin="anonymous"></script>
+</body>
+<script>'undefined'=== typeof _trfq || (window._trfq = []);'undefined'=== typeof _trfd && (window._trfd=[]),_trfd.push({'tccl.baseHost':'secureserver.net'},{'ap':'cpsh-oh'},{'server':'sg2plzcpnl508372'},{'dcenter':'sg2'},{'cp_id':'10889496'},{'cp_cl':'8'}) // Monitoring performance to make your website faster. If you want to opt-out, please contact web hosting support.</script><script src='https://img1.wsimg.com/traffic-assets/js/tccl.min.js'></script></html>
